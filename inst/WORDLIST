@@ -1,11 +1,9 @@
-behaviour
 csv
 fs
 io
 lifecycle
-purrr
-rdata
+onment
 readr
 rio
 rlang
-tidyverse
+tibbles

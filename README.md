@@ -3,7 +3,7 @@
 
 # tor
 
-[![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+[![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
 [![Travis build
 status](https://travis-ci.org/maurolepore/tor.svg?branch=master)](https://travis-ci.org/maurolepore/tor)
 [![Coverage
@@ -11,18 +11,23 @@ status](https://coveralls.io/repos/github/maurolepore/tor/badge.svg)](https://co
 [![CRAN
 status](https://www.r-pkg.org/badges/version/tor)](https://cran.r-project.org/package=tor)
 
-The goal of **tor** (*to-R*) is to make importing data into R
-ridiculously easy. It helps you to import multiple files from a single
-directory into R in a simple, intuitive way. `list_csv()` creates a list
-of all “\*.csv” files in your working directory; and `load_rdata()`
-loads all “\*.rdata” files into your global environment (see all
-functions in
-[Reference](https://maurolepore.github.io/tor/reference/index.html)).
-**tor** does nothing you can’t do with functions from base R but it
-makes a frequent task less painful. It has few dependencies and works
-well with the [tidyverse](https://www.tidyverse.org/).
+**tor** (*to-R*) helps you to import multiple files at once. For
+example:
+
+  - Run `list_rds()` to import all .csv files from your working
+    directory into a list.
+  - Run `load_csv()` to import all .csv files from your working
+    directory into your global environment.
 
 ## Installation
+
+Install **tor** from CRAN with:
+
+``` r
+install.packages("tor")
+```
+
+Or install the development version from GitHub with:
 
 ``` r
 # install.packages("devtools")
@@ -35,20 +40,18 @@ devtools::install_github("maurolepore/tor")
 library(tor)
 ```
 
-All functions list whatever they read, and default to reading from the
-working directory.
-
 ### `list_*()`: Import multiple files from a directory into a list
+
+All functions default to importing files from the working directory.
 
 ``` r
 dir()
 #>  [1] "_pkgdown.yml"     "cran-comments.md" "csv1.csv"        
-#>  [4] "csv2.csv"         "datasets"         "DESCRIPTION"     
-#>  [7] "docs"             "inst"             "LICENSE.md"      
-#> [10] "man"              "NAMESPACE"        "NEWS.md"         
-#> [13] "R"                "README.md"        "README.Rmd"      
-#> [16] "tests"            "tmp.R"            "tor.Rproj"       
-#> [19] "vignettes"
+#>  [4] "csv2.csv"         "DESCRIPTION"      "docs"            
+#>  [7] "inst"             "LICENSE.md"       "man"             
+#> [10] "NAMESPACE"        "NEWS.md"          "R"               
+#> [13] "README.md"        "README.Rmd"       "tests"           
+#> [16] "tmp.R"            "tor.Rproj"        "vignettes"
 
 list_csv()
 #> Parsed with column specification:
@@ -82,7 +85,7 @@ tor_example()
 #> [1] "csv"   "mixed" "rdata" "rds"   "tsv"
 
 (path_rds <- tor_example("rds"))
-#> [1] "C:/Users/LeporeM/Documents/R/R-3.5.2/library/tor/extdata/rds"
+#> [1] "C:/Users/LeporeM/Documents/R/win-library/3.5/tor/extdata/rds"
 dir(path_rds)
 #> [1] "rds1.rds" "rds2.rds"
 
@@ -150,7 +153,7 @@ read with.
 
 ``` r
 (path_csv <- tor_example("csv"))
-#> [1] "C:/Users/LeporeM/Documents/R/R-3.5.2/library/tor/extdata/csv"
+#> [1] "C:/Users/LeporeM/Documents/R/win-library/3.5/tor/extdata/csv"
 dir(path_csv)
 #> [1] "csv1.csv" "csv2.csv"
 
@@ -178,7 +181,7 @@ It understands lambda functions and formulas (powered by
 library(magrittr)
 
 (path_rdata <- tor_example("rdata"))
-#> [1] "C:/Users/LeporeM/Documents/R/R-3.5.2/library/tor/extdata/rdata"
+#> [1] "C:/Users/LeporeM/Documents/R/win-library/3.5/tor/extdata/rdata"
 dir(path_rdata)
 #> [1] "rdata1.rdata" "rdata2.rdata"
 
@@ -310,18 +313,18 @@ path_mixed %>%
 
 ### `load_*()`: Load multiple files from a directory into an environment
 
-All functions default to load from the working directory.
+All functions default to importing files from the working directory and
+into the global environment.
 
 ``` r
 # The working directory contains .csv files
 dir()
 #>  [1] "_pkgdown.yml"     "cran-comments.md" "csv1.csv"        
-#>  [4] "csv2.csv"         "datasets"         "DESCRIPTION"     
-#>  [7] "docs"             "inst"             "LICENSE.md"      
-#> [10] "man"              "NAMESPACE"        "NEWS.md"         
-#> [13] "R"                "README.md"        "README.Rmd"      
-#> [16] "tests"            "tmp.R"            "tor.Rproj"       
-#> [19] "vignettes"
+#>  [4] "csv2.csv"         "DESCRIPTION"      "docs"            
+#>  [7] "inst"             "LICENSE.md"       "man"             
+#> [10] "NAMESPACE"        "NEWS.md"          "R"               
+#> [13] "README.md"        "README.Rmd"       "tests"           
+#> [16] "tmp.R"            "tor.Rproj"        "vignettes"
 
 load_csv()
 #> Parsed with column specification:
@@ -346,17 +349,15 @@ csv2
 #>   <chr>
 #> 1 a    
 #> 2 b
+
+rm(list = ls())
 ```
 
-You may load from a `path`.
+You may import files from a specific `path`.
 
 ``` r
-rm(list = ls())
-ls()
-#> character(0)
-
 (path_mixed <- tor_example("mixed"))
-#> [1] "C:/Users/LeporeM/Documents/R/R-3.5.2/library/tor/extdata/mixed"
+#> [1] "C:/Users/LeporeM/Documents/R/win-library/3.5/tor/extdata/mixed"
 dir(path_mixed)
 #> [1] "csv.csv"           "lower_rdata.rdata" "rda.rda"          
 #> [4] "upper_rdata.RData"
@@ -373,9 +374,58 @@ rda
 #> 2 b
 ```
 
+You may import files into a specific `envir`onment.
+
+``` r
+e <- new.env()
+ls(e)
+#> character(0)
+
+load_rdata(path_mixed, envir = e)
+
+ls(e)
+#> [1] "lower_rdata" "rda"         "upper_rdata"
+```
+
+For more flexibility use `load_any()` with a function able to read one
+file of the format you want to import.
+
+``` r
+dir()
+#>  [1] "_pkgdown.yml"     "cran-comments.md" "csv1.csv"        
+#>  [4] "csv2.csv"         "DESCRIPTION"      "docs"            
+#>  [7] "inst"             "LICENSE.md"       "man"             
+#> [10] "NAMESPACE"        "NEWS.md"          "R"               
+#> [13] "README.md"        "README.Rmd"       "tests"           
+#> [16] "tmp.R"            "tor.Rproj"        "vignettes"
+
+load_any(".", .f = readr::read_csv, regexp = "[.]csv$")
+#> Parsed with column specification:
+#> cols(
+#>   x = col_double()
+#> )
+#> Parsed with column specification:
+#> cols(
+#>   y = col_character()
+#> )
+
+# The data is now available in the global environment
+csv1
+#> # A tibble: 2 x 1
+#>       x
+#>   <dbl>
+#> 1     1
+#> 2     2
+csv2
+#> # A tibble: 2 x 1
+#>   y    
+#>   <chr>
+#> 1 a    
+#> 2 b
+```
+
 # Related projects
 
-There are great packages to read and write data, for example
+Two great packages to read and write data are
 [**rio**](https://CRAN.R-project.org/package=rio) and
-[**io**](https://CRAN.R-project.org/package=io). **tor** does less than
-the alternatives, but it is much smaller and more flexible.
+[**io**](https://CRAN.R-project.org/package=io).
