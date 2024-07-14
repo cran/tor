@@ -1,3 +1,11 @@
+# tor 1.1.3
+
+<!-- NEWS.md is maintained by https://cynkra.github.io/fledge, do not edit -->
+
+# tor 1.1.2.9002
+
+* Modernize: Upkeep for tor (2024) (#47).
+
 # tor 1.1.2
 
 * No longer assume `stringsAsFactor` defaults to `TRUE`.

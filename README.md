@@ -5,24 +5,21 @@
 
 <!-- badges: start -->
 
-[![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
-[![Travis build
-status](https://travis-ci.org/maurolepore/tor.svg?branch=master)](https://travis-ci.org/maurolepore/tor)
-[![Codecov test
-coverage](https://codecov.io/gh/maurolepore/tor/branch/master/graph/badge.svg)](https://codecov.io/gh/maurolepore/tor?branch=master)
-[![Coverage
-status](https://coveralls.io/repos/github/maurolepore/tor/badge.svg)](https://coveralls.io/r/maurolepore/tor?branch=master)
 [![CRAN
-status](https://www.r-pkg.org/badges/version/tor)](https://cran.r-project.org/package=tor)
+status](https://www.r-pkg.org/badges/version/tor)](https://CRAN.R-project.org/package=tor)
+[![Codecov test
+coverage](https://codecov.io/gh/maurolepore/tor/branch/main/graph/badge.svg)](https://app.codecov.io/gh/maurolepore/tor?branch=main)
+[![R-CMD-check](https://github.com/maurolepore/tor/workflows/R-CMD-check/badge.svg)](https://github.com/maurolepore/tor/actions)
+[![R-CMD-check](https://github.com/maurolepore/tor/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/maurolepore/tor/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 **tor** (*to-R*) helps you to import multiple files at once. For
 example:
 
-  - Run `list_rds()` to import all .csv files from your working
-    directory into a list.
-  - Run `load_csv()` to import all .csv files from your working
-    directory into your global environment.
+- Run `list_rds()` to import all .csv files from your working directory
+  into a list.
+- Run `load_csv()` to import all .csv files from your working directory
+  into your global environment.
 
 ## Installation
 
@@ -58,23 +55,29 @@ dir()
 #> [17] "vignettes"
 
 list_csv()
-#> Parsed with column specification:
-#> cols(
-#>   x = col_double()
-#> )
-#> Parsed with column specification:
-#> cols(
-#>   y = col_character()
-#> )
+#> Rows: 2 Columns: 1
+#> ── Column specification ────────────────────────────────────────────────────────
+#> Delimiter: ","
+#> dbl (1): x
+#> 
+#> ℹ Use `spec()` to retrieve the full column specification for this data.
+#> ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+#> Rows: 2 Columns: 1
+#> ── Column specification ────────────────────────────────────────────────────────
+#> Delimiter: ","
+#> chr (1): y
+#> 
+#> ℹ Use `spec()` to retrieve the full column specification for this data.
+#> ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
 #> $csv1
-#> # A tibble: 2 x 1
+#> # A tibble: 2 × 1
 #>       x
 #>   <dbl>
 #> 1     1
 #> 2     2
 #> 
 #> $csv2
-#> # A tibble: 2 x 1
+#> # A tibble: 2 × 1
 #>   y    
 #>   <chr>
 #> 1 a    
@@ -89,20 +92,20 @@ tor_example()
 #> [1] "csv"   "mixed" "rdata" "rds"   "tsv"
 
 (path_rds <- tor_example("rds"))
-#> [1] "/home/mauro/R/x86_64-pc-linux-gnu-library/3.6/tor/extdata/rds"
+#> [1] "/tmp/RtmpYaA5se/temp_libpath3ffe324f0098/tor/extdata/rds"
 dir(path_rds)
 #> [1] "rds1.rds" "rds2.rds"
 
 list_rds(path_rds)
 #> $rds1
-#> # A tibble: 2 x 1
+#> # A tibble: 2 × 1
 #>       x
 #>   <dbl>
 #> 1     1
 #> 2     2
 #> 
 #> $rds2
-#> # A tibble: 2 x 1
+#> # A tibble: 2 × 1
 #>   y    
 #>   <chr>
 #> 1 a    
@@ -119,21 +122,21 @@ dir(path_mixed)
 
 list_rdata(path_mixed)
 #> $lower_rdata
-#> # A tibble: 2 x 1
+#> # A tibble: 2 × 1
 #>   y    
 #>   <chr>
 #> 1 a    
 #> 2 b    
 #> 
 #> $rda
-#> # A tibble: 2 x 1
+#> # A tibble: 2 × 1
 #>   y    
 #>   <chr>
 #> 1 a    
 #> 2 b    
 #> 
 #> $upper_rdata
-#> # A tibble: 2 x 1
+#> # A tibble: 2 × 1
 #>   y    
 #>   <chr>
 #> 1 a    
@@ -145,7 +148,7 @@ Or you may read specific files matching a pattern.
 ``` r
 list_rdata(path_mixed, regexp = "[.]RData", ignore.case = FALSE)
 #> $upper_rdata
-#> # A tibble: 2 x 1
+#> # A tibble: 2 × 1
 #>   y    
 #>   <chr>
 #> 1 a    
@@ -157,22 +160,22 @@ read with.
 
 ``` r
 (path_csv <- tor_example("csv"))
-#> [1] "/home/mauro/R/x86_64-pc-linux-gnu-library/3.6/tor/extdata/csv"
+#> [1] "/tmp/RtmpYaA5se/temp_libpath3ffe324f0098/tor/extdata/csv"
 dir(path_csv)
 #> [1] "csv1.csv" "csv2.csv"
 
 list_any(path_csv, read.csv)
 #> $csv1
-#> # A tibble: 2 x 1
+#> # A tibble: 2 × 1
 #>       x
 #>   <int>
 #> 1     1
 #> 2     2
 #> 
 #> $csv2
-#> # A tibble: 2 x 1
+#> # A tibble: 2 × 1
 #>   y    
-#>   <fct>
+#>   <chr>
 #> 1 a    
 #> 2 b
 ```
@@ -185,38 +188,38 @@ It understands lambda functions and formulas (powered by
 library(magrittr)
 
 (path_rdata <- tor_example("rdata"))
-#> [1] "/home/mauro/R/x86_64-pc-linux-gnu-library/3.6/tor/extdata/rdata"
+#> [1] "/tmp/RtmpYaA5se/temp_libpath3ffe324f0098/tor/extdata/rdata"
 dir(path_rdata)
 #> [1] "rdata1.rdata" "rdata2.rdata"
 
-path_rdata %>% 
+path_rdata %>%
   list_any(function(x) get(load(x)))
 #> $rdata1
-#> # A tibble: 2 x 1
+#> # A tibble: 2 × 1
 #>       x
 #>   <dbl>
 #> 1     1
 #> 2     2
 #> 
 #> $rdata2
-#> # A tibble: 2 x 1
+#> # A tibble: 2 × 1
 #>   y    
 #>   <chr>
 #> 1 a    
 #> 2 b
 
 # Same
-path_rdata %>% 
-  list_any(~get(load(.x)))
+path_rdata %>%
+  list_any(~ get(load(.x)))
 #> $rdata1
-#> # A tibble: 2 x 1
+#> # A tibble: 2 × 1
 #>       x
 #>   <dbl>
 #> 1     1
 #> 2     2
 #> 
 #> $rdata2
-#> # A tibble: 2 x 1
+#> # A tibble: 2 × 1
 #>   y    
 #>   <chr>
 #> 1 a    
@@ -226,39 +229,45 @@ path_rdata %>%
 Pass additional arguments via `...` or inside the lambda function.
 
 ``` r
-path_csv %>% 
+path_csv %>%
   list_any(readr::read_csv, skip = 1)
-#> Parsed with column specification:
-#> cols(
-#>   `1` = col_double()
-#> )
-#> Parsed with column specification:
-#> cols(
-#>   a = col_character()
-#> )
+#> Rows: 1 Columns: 1
+#> ── Column specification ────────────────────────────────────────────────────────
+#> Delimiter: ","
+#> dbl (1): 1
+#> 
+#> ℹ Use `spec()` to retrieve the full column specification for this data.
+#> ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+#> Rows: 1 Columns: 1
+#> ── Column specification ────────────────────────────────────────────────────────
+#> Delimiter: ","
+#> chr (1): a
+#> 
+#> ℹ Use `spec()` to retrieve the full column specification for this data.
+#> ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
 #> $csv1
-#> # A tibble: 1 x 1
+#> # A tibble: 1 × 1
 #>     `1`
 #>   <dbl>
 #> 1     2
 #> 
 #> $csv2
-#> # A tibble: 1 x 1
+#> # A tibble: 1 × 1
 #>   a    
 #>   <chr>
 #> 1 b
 
-path_csv %>% 
-  list_any(~read.csv(., stringsAsFactors = FALSE))
+path_csv %>%
+  list_any(~ read.csv(., stringsAsFactors = FALSE))
 #> $csv1
-#> # A tibble: 2 x 1
+#> # A tibble: 2 × 1
 #>       x
 #>   <int>
 #> 1     1
 #> 2     2
 #> 
 #> $csv2
-#> # A tibble: 2 x 1
+#> # A tibble: 2 × 1
 #>   y    
 #>   <chr>
 #> 1 a    
@@ -275,40 +284,40 @@ dir(path_mixed)
 #> [1] "csv.csv"           "lower_rdata.rdata" "rda.rda"          
 #> [4] "upper_rdata.RData"
 
-path_mixed %>% 
-  list_any(~get(load(.)), "[.]Rdata$", ignore.case = TRUE)
+path_mixed %>%
+  list_any(~ get(load(.)), "[.]Rdata$", ignore.case = TRUE)
 #> $lower_rdata
-#> # A tibble: 2 x 1
+#> # A tibble: 2 × 1
 #>   y    
 #>   <chr>
 #> 1 a    
 #> 2 b    
 #> 
 #> $upper_rdata
-#> # A tibble: 2 x 1
+#> # A tibble: 2 × 1
 #>   y    
 #>   <chr>
 #> 1 a    
 #> 2 b
 
-path_mixed %>% 
-  list_any(~get(load(.)), regexp = "[.]csv$", invert = TRUE)
+path_mixed %>%
+  list_any(~ get(load(.)), regexp = "[.]csv$", invert = TRUE)
 #> $lower_rdata
-#> # A tibble: 2 x 1
+#> # A tibble: 2 × 1
 #>   y    
 #>   <chr>
 #> 1 a    
 #> 2 b    
 #> 
 #> $rda
-#> # A tibble: 2 x 1
+#> # A tibble: 2 × 1
 #>   y    
 #>   <chr>
 #> 1 a    
 #> 2 b    
 #> 
 #> $upper_rdata
-#> # A tibble: 2 x 1
+#> # A tibble: 2 × 1
 #>   y    
 #>   <chr>
 #> 1 a    
@@ -330,24 +339,30 @@ dir()
 #> [17] "vignettes"
 
 load_csv()
-#> Parsed with column specification:
-#> cols(
-#>   x = col_double()
-#> )
-#> Parsed with column specification:
-#> cols(
-#>   y = col_character()
-#> )
+#> Rows: 2 Columns: 1
+#> ── Column specification ────────────────────────────────────────────────────────
+#> Delimiter: ","
+#> dbl (1): x
+#> 
+#> ℹ Use `spec()` to retrieve the full column specification for this data.
+#> ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+#> Rows: 2 Columns: 1
+#> ── Column specification ────────────────────────────────────────────────────────
+#> Delimiter: ","
+#> chr (1): y
+#> 
+#> ℹ Use `spec()` to retrieve the full column specification for this data.
+#> ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
 
 # Each file is now available as a dataframe in the global environment
 csv1
-#> # A tibble: 2 x 1
+#> # A tibble: 2 × 1
 #>       x
 #>   <dbl>
 #> 1     1
 #> 2     2
 csv2
-#> # A tibble: 2 x 1
+#> # A tibble: 2 × 1
 #>   y    
 #>   <chr>
 #> 1 a    
@@ -360,7 +375,7 @@ You may import files from a specific `path`.
 
 ``` r
 (path_mixed <- tor_example("mixed"))
-#> [1] "/home/mauro/R/x86_64-pc-linux-gnu-library/3.6/tor/extdata/mixed"
+#> [1] "/tmp/RtmpYaA5se/temp_libpath3ffe324f0098/tor/extdata/mixed"
 dir(path_mixed)
 #> [1] "csv.csv"           "lower_rdata.rdata" "rda.rda"          
 #> [4] "upper_rdata.RData"
@@ -368,9 +383,9 @@ dir(path_mixed)
 load_rdata(path_mixed)
 
 ls()
-#> [1] "lower_rdata" "path_mixed"  "rda"         "upper_rdata"
+#> [1] "path_mixed"
 rda
-#> # A tibble: 2 x 1
+#> # A tibble: 2 × 1
 #>   y    
 #>   <chr>
 #> 1 a    
@@ -402,24 +417,30 @@ dir()
 #> [17] "vignettes"
 
 load_any(".", .f = readr::read_csv, regexp = "[.]csv$")
-#> Parsed with column specification:
-#> cols(
-#>   x = col_double()
-#> )
-#> Parsed with column specification:
-#> cols(
-#>   y = col_character()
-#> )
+#> Rows: 2 Columns: 1
+#> ── Column specification ────────────────────────────────────────────────────────
+#> Delimiter: ","
+#> dbl (1): x
+#> 
+#> ℹ Use `spec()` to retrieve the full column specification for this data.
+#> ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+#> Rows: 2 Columns: 1
+#> ── Column specification ────────────────────────────────────────────────────────
+#> Delimiter: ","
+#> chr (1): y
+#> 
+#> ℹ Use `spec()` to retrieve the full column specification for this data.
+#> ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
 
 # The data is now available in the global environment
 csv1
-#> # A tibble: 2 x 1
+#> # A tibble: 2 × 1
 #>       x
 #>   <dbl>
 #> 1     1
 #> 2     2
 csv2
-#> # A tibble: 2 x 1
+#> # A tibble: 2 × 1
 #>   y    
 #>   <chr>
 #> 1 a    
@@ -434,7 +455,7 @@ Two great packages to read and write data are
 
 ## Information
 
-  - [Getting help](https://maurolepore.github.io/tor/SUPPORT.html).
-  - [Contributing](https://maurolepore.github.io/tor/CONTRIBUTING.html).
-  - [Contributor Code of
-    Conduct](https://maurolepore.github.io/tor/CODE_OF_CONDUCT.html).
+- [Getting help](https://maurolepore.github.io/tor/SUPPORT.html).
+- [Contributing](https://maurolepore.github.io/tor/CONTRIBUTING.html).
+- [Contributor Code of
+  Conduct](https://maurolepore.github.io/tor/CODE_OF_CONDUCT.html).
